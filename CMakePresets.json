@@ -6,7 +6,7 @@
       "generator": "Ninja",
       "binaryDir": "build-gcc",
       "cacheVariables": {
-        "CMAKE_BUILD_TYPE": "Debug",
+        "CMAKE_BUILD_TYPE": "RelWithDebInfo",
         "USE_FAUDIO": "OFF",
         "USE_SYSTEM_CURL": "OFF",
         "USE_SYSTEM_ZLIB": "OFF",
@@ -22,7 +22,7 @@
       "generator": "Ninja",
       "binaryDir": "build-clang64",
       "cacheVariables": {
-        "CMAKE_BUILD_TYPE": "Debug",
+        "CMAKE_BUILD_TYPE": "RelWithDebInfo",
         "USE_FAUDIO": "OFF",
         "USE_SYSTEM_CURL": "OFF",
         "USE_SYSTEM_ZLIB": "OFF",
