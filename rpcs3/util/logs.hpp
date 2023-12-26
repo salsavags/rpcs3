@@ -5,6 +5,7 @@
 #include <string>
 #include <vector>
 #include <initializer_list>
+
 #include "util/atomic.hpp"
 #include "Utilities/StrFmt.h"
 
