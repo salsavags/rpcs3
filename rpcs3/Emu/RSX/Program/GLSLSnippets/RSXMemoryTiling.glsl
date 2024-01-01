@@ -309,9 +309,10 @@ void do_memory_op(const in uint row, const in uint col)
 
 	// Calculate relative addresses and sample
 	uint linear_image_offset = (row * image_pitch) + (col * image_bpp);
-	uint tile_data_offset = tile_address - (tile_base_address + tile_offset);
+	uint tile_base_offset = tile_address - tile_base_address; // Distance from tile base address
+	uint tile_data_offset = tile_base_offset - tile_offset;   // Distance from data base address
 
-	if (tile_data_offset >= tile_size)
+	if (tile_base_offset >= tile_size)
 	{
 		// Do not touch anything out of bounds
 		return;

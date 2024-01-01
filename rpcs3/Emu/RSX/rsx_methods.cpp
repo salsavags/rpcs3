@@ -1576,7 +1576,6 @@ namespace rsx
 			AVPixelFormat ffmpeg_dst_format,
 			bool need_convert,
 			bool need_clip,
-			bool src_is_modified,
 			bool interpolate)
 		{
 			std::vector<u8> temp2, temp3;
@@ -1782,7 +1781,7 @@ namespace rsx
 			}
 			else
 			{
-				const auto swz_temp = _swizzled_copy_1(dst, src, out_w, out_h, slice_h, in_format, out_format, need_convert, need_clip, src_is_temp, interpolate);
+				const auto swz_temp = _swizzled_copy_1(dst, src, out_w, out_h, slice_h, in_format, out_format, need_convert, need_clip, interpolate);
 				auto pixels_src = swz_temp.empty() ? src.pixels : swz_temp.data();
 
 				_swizzled_copy_2(const_cast<u8*>(pixels_src), dst.pixels, src.pitch, out_w, out_h, dst.bpp);
@@ -1790,7 +1789,11 @@ namespace rsx
 
 			if (tiled_region)
 			{
-				rsx::tile_texel_data<u32, false>(
+				const auto tile_func = dst.bpp == 4
+					? rsx::tile_texel_data32
+					: rsx::tile_texel_data16;
+
+				tile_func(
 					real_dst,
 					dst.pixels,
 					tiled_region.base_address,
