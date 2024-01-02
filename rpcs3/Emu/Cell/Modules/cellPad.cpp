@@ -58,7 +58,9 @@ extern void sys_io_serialize(utils::serial& ar);
 pad_info::pad_info(utils::serial& ar)
 	: max_connect(ar)
 	, port_setting(ar)
+	, reported_info(ar)
 {
+	reported_info = {};
 	sys_io_serialize(ar);
 }
 
@@ -66,14 +68,14 @@ void pad_info::save(utils::serial& ar)
 {
 	USING_SERIALIZATION_VERSION(sys_io);
 
-	ar(max_connect, port_setting);
+	ar(max_connect, port_setting, reported_info);
 
 	sys_io_serialize(ar);
 }
 
 extern void send_sys_io_connect_event(usz index, u32 state);
 
-void cellPad_NotifyStateChange(usz index, u64 /*state*/)
+void cellPad_NotifyStateChange(usz index, u64 /*state*/, bool locked)
 {
 	auto info = g_fxo->try_get<pad_info>();
 
@@ -82,7 +84,12 @@ void cellPad_NotifyStateChange(usz index, u64 /*state*/)
 		return;
 	}
 
-	std::lock_guard lock(pad::g_pad_mutex);
+	std::unique_lock lock(pad::g_pad_mutex, std::defer_lock);
+
+	if (locked)
+	{
+		lock.lock();
+	}
 
 	if (index >= info->get_max_connect())
 	{
@@ -158,7 +165,7 @@ void cellPad_NotifyStateChange(usz index, u64 /*state*/)
 
 extern void pad_state_notify_state_change(usz index, u32 state)
 {
-	cellPad_NotifyStateChange(index, state);
+	send_sys_io_connect_event(index, state);
 }
 
 error_code cellPadInit(ppu_thread& ppu, u32 max_connect)
@@ -1131,6 +1138,8 @@ error_code cellPadLddRegisterController()
 
 	config.port_setting[handle] = 0;
 
+	cellPad_NotifyStateChange(handle, CELL_PAD_STATUS_CONNECTED, false);
+
 	return not_an_error(handle);
 }
 
@@ -1204,6 +1213,7 @@ error_code cellPadLddUnregisterController(s32 handle)
 		return CELL_PAD_ERROR_NO_DEVICE;
 
 	handler->UnregisterLddPad(handle);
+	cellPad_NotifyStateChange(handle, CELL_PAD_STATUS_DISCONNECTED, false);
 
 	return CELL_OK;
 }
