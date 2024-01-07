@@ -21,7 +21,7 @@ BEGIN
 		BEGIN
 			VALUE "CompanyName", "RPCS3 Project" 
 			VALUE "FileDescription", "RPCS3" 
-			VALUE "FileVersion", "0.0.29.1"
+			VALUE "FileVersion", "0.0.30.1"
 			VALUE "InternalName", "rpcs3" 
 			VALUE "OriginalFilename", "rpcs3.exe" 
 			VALUE "ProductName", "RPCS3 Emulator" 
