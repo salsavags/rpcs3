@@ -7,8 +7,8 @@ IDI_ICON1 ICON "rpcs3.ico"
 frame_icon ICON "rpcs3.ico"
 
 VS_VERSION_INFO VERSIONINFO
-FILEVERSION 0, 0, 29, 1 
-PRODUCTVERSION 0, 0, 29, 1 
+FILEVERSION 0, 0, 30, 1 
+PRODUCTVERSION 0, 0, 30, 1 
 FILEFLAGSMASK 0x3fL
 FILEFLAGS 0x0L
 FILEOS 0x40004L
@@ -25,7 +25,7 @@ BEGIN
 			VALUE "InternalName", "rpcs3" 
 			VALUE "OriginalFilename", "rpcs3.exe" 
 			VALUE "ProductName", "RPCS3 Emulator" 
-			VALUE "ProductVersion", "0.0.29.1-dev" 
+			VALUE "ProductVersion", "0.0.30.1-dev" 
 			VALUE "LegalCopyright", "GNU General Public License v2.0"
 		END 
 	END 
