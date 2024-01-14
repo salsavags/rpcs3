@@ -12,6 +12,7 @@
 #include "Emu/RSX/RSXThread.h"
 #include "Emu/Cell/SPURecompiler.h"
 #include "Emu/perf_meter.hpp"
+
 #include <deque>
 #include <span>
 

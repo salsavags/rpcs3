@@ -2,6 +2,7 @@
 
 #include <memory>
 #include <map>
+
 #include "util/types.hpp"
 #include "util/atomic.hpp"
 #include "util/auto_typemap.hpp"
