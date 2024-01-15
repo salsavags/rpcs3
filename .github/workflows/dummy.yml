@@ -8,6 +8,3 @@ jobs:
     steps:
       - name: run dummy
         run: ./.ci/dummy.bat
-        
-        
-  
