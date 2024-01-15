@@ -4,7 +4,4 @@ name: dummy
 jobs:
   dummy:
     runs-on: windows-latest
-    if: ${{ github.repository == 'salsavags/rpcs3' && !github.head_ref }}
-    steps:
-      - name: run dummy
-        run: ./.ci/dummy.bat
+    name: foo-job
