@@ -5,3 +5,6 @@ jobs:
   dummy:
     runs-on: windows-latest
     name: foo-job
+    steps:
+      - name: dummy
+        run: echo Dummy succeeded
