@@ -102,7 +102,7 @@ git submodule update --init
 
 #### Building the projects
 
-Generate the SLN file using CMake. You can use the `--preset msvc` command-line option for convenience
+Generate the SLN file using CMake. You can use the `--preset msvc` command-line option for convenience.
 
 From inside VS:
 
