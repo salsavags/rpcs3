@@ -1,0 +1,16 @@
+name: Echo version
+on: 
+  workflow_dispatch:
+    inputs:
+      version:
+        description: Version number
+        default: v0.0.30
+        required: true
+jobs:
+  print:
+    name: Echo success
+    runs-on: windows-latest
+    steps:
+      - name: Command
+        run: echo Success! ${{ github.event.inputs.version }}
+        
