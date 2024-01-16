@@ -11,6 +11,6 @@ jobs:
     name: Echo success
     runs-on: windows-latest
     steps:
-      - name: Command
+      - name: Placeholder
         run: echo Success! ${{ github.event.inputs.version }}
         
