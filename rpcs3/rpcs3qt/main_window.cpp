@@ -57,6 +57,7 @@
 #include "Emu/vfs_config.h"
 #include "Emu/System.h"
 #include "Emu/system_utils.hpp"
+#include "Emu/system_config.h"
 
 #include "Crypto/unpkg.h"
 #include "Crypto/unself.h"
@@ -1388,10 +1389,27 @@ void main_window::HandlePupInstallation(const QString& file_path, const QString&
 
 	fs::file update_files_f = pup.get_file(0x300);
 
-	if (!update_files_f)
+	const usz update_files_size = update_files_f ? update_files_f.size() : 0;
+
+	if (!update_files_size)
 	{
 		gui_log.error("Error while installing firmware: Couldn't find installation packages database.");
 		critical(tr("Firmware installation failed: The provided file's contents are corrupted."));
+		return;
+	}
+
+	fs::device_stat dev_stat{};
+	if (!fs::statfs(g_cfg_vfs.get_dev_flash(), dev_stat))
+	{
+		gui_log.error("Error while installing firmware: Couldn't retrieve available disk space. ('%s')", g_cfg_vfs.get_dev_flash());
+		critical(tr("Firmware installation failed: Couldn't retrieve available disk space."));
+		return;
+	}
+
+	if (dev_stat.avail_free < update_files_size)
+	{
+		gui_log.error("Error while installing firmware: Out of disk space. ('%s', needed: %d bytes)", g_cfg_vfs.get_dev_flash(), update_files_size - dev_stat.avail_free);
+		critical(tr("Firmware installation failed: Out of disk space."));
 		return;
 	}
 
@@ -2378,6 +2396,21 @@ void main_window::CreateConnects()
 	connect(ui->actionCreate_Savestate, &QAction::triggered, this, []()
 	{
 		gui_log.notice("User triggered savestate creation from utilities.");
+
+		if (!g_cfg.savestate.suspend_emu)
+		{
+			Emu.after_kill_callback = []()
+			{
+				Emu.Restart();
+			};
+		}
+
+		Emu.Kill(false, true);
+	});
+
+	connect(ui->actionCreate_Savestate_And_Exit, &QAction::triggered, this, []()
+	{
+		gui_log.notice("User triggered savestate creation and emulation stop from utilities.");
 		Emu.Kill(false, true);
 	});
 
