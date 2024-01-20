@@ -7,3 +7,6 @@
 # Isn't this obvious
 *.png binary
 *.ico binary
+
+# re-linguist
+*.bat linguist-vendored=false
