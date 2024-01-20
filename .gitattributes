@@ -4,5 +4,6 @@
 *.vcxproj text eol=lf
 *.vcxproj.filters text eol=lf
 
-# Basic linguist integration
-*.h linguist-language=cpp
+# Isn't this obvious
+*.png binary
+*.ico binary
