@@ -1906,8 +1906,9 @@ std::string fs::get_executable_path()
 	static const std::string s_exe_path = []
 	{
 #if defined(_WIN32)
-		std::vector<wchar_t> buffer(32767);
-		GetModuleFileNameW(nullptr, buffer.data(), buffer.size());
+		constexpr DWORD size = 32767;
+		std::vector<wchar_t> buffer(size);
+		GetModuleFileNameW(nullptr, buffer.data(), size);
 		return wchar_to_utf8(buffer.data());
 #elif defined(__APPLE__)
 		char bin_path[PATH_MAX];
@@ -1959,7 +1960,7 @@ std::string fs::get_executable_dir()
 			return exe_path;
 		}
 
-		return get_parent_dir(exe_path);
+		return get_parent_dir(exe_path) + "/";
 	}();
 
 	return s_exe_dir;
