@@ -10,3 +10,5 @@
 
 # re-linguist
 *.bat linguist-vendored=false
+*.mm linguist-vendored=true
+*.cmd linguist-vendored=true
