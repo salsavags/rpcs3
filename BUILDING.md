@@ -102,16 +102,9 @@ git submodule update --init
 
 #### Building the projects
 
-Open `rpcs3.sln`. The recommended build configuration is `Release`. (On older revisions: `Release - LLVM`)
+Generate the SLN file using CMake. You can use the `--preset msvc` command-line option for convenience.
 
-You may want to download the precompiled [LLVM libs](https://github.com/RPCS3/llvm-mirror/releases/download/custom-build-win-16.0.1/llvmlibs_mt.7z) and extract them to `3rdparty\llvm\`, as well as download and extract the [additional libs](https://github.com/RPCS3/glslang/releases/latest/download/glslanglibs_mt.7z) to `lib\%CONFIGURATION%-x64\` to speed up compilation time (unoptimised/debug libs are currently not available precompiled).
-
-If you're not using the precompiled libs, build the following projects in *__BUILD_BEFORE* folder by right-clicking on a project > *Build*.:
-* glslang
-* **Either** llvm_build **or** llvm_build_clang_cl
-* spirv
-
-Afterwards:
+From inside VS:
 
 `Build > Build Solution`
 

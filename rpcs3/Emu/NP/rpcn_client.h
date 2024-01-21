@@ -4,6 +4,7 @@
 #include <chrono>
 #include <thread>
 #include <semaphore>
+
 #include "Utilities/mutex.h"
 #include "Emu/localized_string.h"
 

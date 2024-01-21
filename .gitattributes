@@ -1,0 +1,12 @@
+# Use LF to shut up git
+*.sln text eol=lf
+*.props text eol=lf
+*.vcxproj text eol=lf
+*.vcxproj.filters text eol=lf
+
+# Isn't this obvious
+*.png binary
+*.ico binary
+
+# re-linguist
+*.bat linguist-vendored=false

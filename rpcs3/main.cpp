@@ -70,6 +70,7 @@ DYNAMIC_IMPORT("ntdll.dll", NtSetTimerResolution, NTSTATUS(ULONG DesiredResoluti
 #include "rpcs3_version.h"
 #include "Emu/System.h"
 #include "Emu/system_utils.hpp"
+
 #include <thread>
 #include <charconv>
 

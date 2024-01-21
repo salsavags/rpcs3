@@ -1,3 +1,7 @@
+# Windows thumb cache
+Thumbs.db
+ehthumbs.db
+
 # Compiled Object files
 *.slo
 *.lo
